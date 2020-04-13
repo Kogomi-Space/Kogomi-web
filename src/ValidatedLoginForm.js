@@ -1,7 +1,7 @@
 import React from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import Home from "./Home";
+import checkLogin from './CheckLogin'
 
 const ValidatedLoginForm = (props, status) => (
     <Formik
@@ -9,8 +9,10 @@ const ValidatedLoginForm = (props, status) => (
         onSubmit={(values, { setSubmitting }) => {
             setTimeout(() => {
                 setSubmitting(false);
-                loggedIn = true;
-                props.history.push('/main');
+                // loggedIn = true;
+                if (checkLogin(values.email,values.password)) {
+                    props.history.push('/main');
+                }
             }, 500);
         }}
         validationSchema={Yup.object().shape({

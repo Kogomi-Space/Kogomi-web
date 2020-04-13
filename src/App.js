@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { Route, Redirect, Switch } from 'react-router-dom';
+import React from 'react';
+import { Route, Switch } from 'react-router-dom';
 import './App.css';
-import { Connect } from 'react-redux';
+// import { Connect } from 'react-redux';
 
 import ValidatedLoginForm from "./ValidatedLoginForm";
 import Main from "./Main";
