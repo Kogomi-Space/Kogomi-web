@@ -2,8 +2,8 @@ import React from 'react';
 import { Link, Route } from 'react-router-dom';
 
 const Main = (props) => {
+    console.log('props',props);
     const match = props.match;
-    console.log(match);
     return(
         props.loggedIn ? (
             <div> <ul>
