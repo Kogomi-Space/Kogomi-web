@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.9.10",
+    "@material/drawer": "^5.1.0",
+    "@material/top-app-bar": "^5.1.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
@@ -14,7 +16,6 @@
     "history": "4.9.0",
     "layouts": "^3.0.2",
     "lodash": "latest",
-    "node-sass": "4.12.0",
     "perfect-scrollbar": "1.4.0",
     "react": "^16.13.1",
     "react-chartjs-2": "2.7.6",
@@ -22,16 +23,18 @@
     "react-google-maps": "9.4.5",
     "react-notification-alert": "0.0.12",
     "react-router": "5.0.0",
-    "react-router-dom": "5.0.0",
+    "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
     "reactstrap": "8.0.0",
+    "recharts": "^1.8.5",
     "redux": "^4.0.5",
+    "sass": "^1.26.3",
     "yup": "^0.28.3"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
   "optionalDependencies": {
@@ -58,7 +61,10 @@
   },
   "devDependencies": {
     "@material-ui/icons": "^4.9.1",
+    "clsx": "^1.1.0",
     "css-loader": "^3.5.1",
+    "node-sass": "^4.13.1",
+    "npm-run-all": "^4.1.5",
     "react-redux": "^7.2.0",
     "reactstrap": "^8.4.1",
     "style-loader": "^1.1.3"
