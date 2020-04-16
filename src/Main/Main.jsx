@@ -3,6 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
@@ -10,13 +12,9 @@ import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+import Collapse from '@material-ui/core/Collapse';
 import { menu } from './menuItems';
 import {Link, Route, Switch, withRouter} from 'react-router-dom';
-import Test from "./Test";
-import ValidatedLoginForm from "../ValidatedLoginForm";
-import Home from "../Home";
 
 const drawerWidth = 240;
 
@@ -43,16 +41,21 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function Main() {
+const Main = () => {
     const classes = useStyles();
-
+    let state = {};
+    function handleClick(name){
+        console.log("name",name);
+        state.name = !state[name];
+        console.log("State",state);
+    };
     return (
         <div className={classes.root}>
             <CssBaseline />
             <AppBar position="fixed" className={classes.appBar}>
                 <Toolbar>
                     <Typography variant="h6" noWrap>
-                        Clipped drawer
+                        Kogomi
                     </Typography>
                 </Toolbar>
             </AppBar>
@@ -66,11 +69,45 @@ function Main() {
                 <Toolbar />
                 <div className={classes.drawerContainer}>
                     <List>
-                        {menu.map((text, index) => (
-                            <ListItem button key={text.name}>
-                                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                                <ListItemText primary={text.name} />
-                            </ListItem>
+                        {menu.map((drawer, index) => (
+                            drawer.hasOwnProperty('children') ? (
+                                <div>
+                                    <ListItem button key={drawer.name} onClick={handleClick(drawer.name)}>
+                                        <ListItemIcon>{drawer.icon}</ListItemIcon>
+                                        <ListItemText primary={drawer.name} />
+                                        { state[drawer.name] ? (
+                                            <ExpandLess />
+                                        ) : (
+                                            <ExpandMore />
+                                        )}
+                                    </ListItem>
+                                    <Collapse
+                                        component="li"
+                                        in={state[drawer.name]}
+                                        timeout="auto"
+                                        unmountOnExit >
+                                        <List disablePadding >
+                                            {drawer.children.map(
+                                                nDrawer => {
+                                                    return (
+                                                        <ListItem
+                                                            button
+                                                            className={classes.content} >
+                                                            <ListItemText
+                                                                primary={nDrawer.name} />
+                                                        </ListItem>
+                                                    )
+                                                }
+                                            )}
+                                        </List>
+                                    </Collapse> {" "}
+                                </div>
+                            ) : (
+                                <ListItem button key={drawer.name}>
+                                    <ListItemIcon>{drawer.icon}</ListItemIcon>
+                                    <ListItemText primary={drawer.name} />
+                                </ListItem>
+                            )
                         ))}
                     </List>
                     <Divider />
