@@ -10,7 +10,6 @@ export const menu = [
     {
       name: "Dashboard",
       url: "",
-      // onClick: new HandleClick(""),
       icon: <DashboardIcon />,
     },
     {

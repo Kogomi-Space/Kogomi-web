@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
@@ -43,11 +43,10 @@ const useStyles = makeStyles((theme) => ({
 
 const Main = () => {
     const classes = useStyles();
-    let state = {};
+    const [state, changeState] = useState({});
     function handleClick(name){
-        // console.log("name",name);
-        state[name] = !state[name];
-        // console.log("State",state);
+        changeState({...state,[name]: !state[name]});
+        console.log("state",state);
     };
     return (
         <div className={classes.root}>
@@ -75,7 +74,6 @@ const Main = () => {
                                     <ListItem button key={drawer.name} onClick={() => handleClick(drawer.name)}>
                                         <ListItemIcon>{drawer.icon}</ListItemIcon>
                                         <ListItemText primary={drawer.name} />
-                                        {console.log(drawer.name,state[drawer.name])}
                                         {state[drawer.name] ? (
                                             <ExpandLess />
                                         ) : (
@@ -91,11 +89,8 @@ const Main = () => {
                                             {drawer.children.map(
                                                 nDrawer => {
                                                     return (
-                                                        <ListItem
-                                                            button
-                                                            className={classes.content} >
-                                                            <ListItemText
-                                                                primary={nDrawer.name} />
+                                                        <ListItem button className={classes.content} >
+                                                            <ListItemText primary={nDrawer.name} />
                                                         </ListItem>
                                                     )
                                                 }
