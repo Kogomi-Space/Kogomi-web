@@ -45,9 +45,9 @@ const Main = () => {
     const classes = useStyles();
     let state = {};
     function handleClick(name){
-        console.log("name",name);
-        state.name = !state[name];
-        console.log("State",state);
+        // console.log("name",name);
+        state[name] = !state[name];
+        // console.log("State",state);
     };
     return (
         <div className={classes.root}>
@@ -72,10 +72,11 @@ const Main = () => {
                         {menu.map((drawer, index) => (
                             drawer.hasOwnProperty('children') ? (
                                 <div>
-                                    <ListItem button key={drawer.name} onClick={handleClick(drawer.name)}>
+                                    <ListItem button key={drawer.name} onClick={() => handleClick(drawer.name)}>
                                         <ListItemIcon>{drawer.icon}</ListItemIcon>
                                         <ListItemText primary={drawer.name} />
-                                        { state[drawer.name] ? (
+                                        {console.log(drawer.name,state[drawer.name])}
+                                        {state[drawer.name] ? (
                                             <ExpandLess />
                                         ) : (
                                             <ExpandMore />
