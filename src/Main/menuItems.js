@@ -9,39 +9,46 @@ import React from "react";
 export const menu = [
     {
       name: "Dashboard",
-      url: "",
+      url: "/main",
+      id: 1,
       icon: <DashboardIcon />,
     },
     {
       name: "User Settings",
-      url: "usersettings",
+      url: "/usersettings",
+      id: 2,
       icon: <UserSettingsIcon />,
       children: [
         {
           name: "Sample 1",
-          url: "usersettings/sample1",
+          url: "/sample1",
+          id: 1,
           icon: <SampleIcon />
         },
         {
           name: "Sample 2",
-          url: "usersettings/sample2",
+          url: "/sample2",
+          id: 2,
           icon: <SampleIcon />
         }
       ]
     },
     {
       name: "Discord Settings",
-      url: "discordsettings",
+      url: "/discordsettings",
+      id: 3,
       icon: <DiscordIcon />,
       children: [
         {
           name: "osu!",
           url: "/osu",
+          id: 1,
           icon: <OsuIcon />
         },
         {
           name: "League of Legends",
-          url: "LoL",
+          url: "/LoL",
+          id: 2,
           icon: <LeagueIcon />
         }
       ]
