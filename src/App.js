@@ -1,12 +1,11 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import './App.css';
 // import { Connect } from 'react-redux';
 
 import ValidatedLoginForm from "./ValidatedLoginForm";
 import Main from "./Main/Main";
 import Home from "./Home";
-import Test from "./Main/Test";
 import NotFound from "./Pages/NotFound";
 
 class App extends React.Component {
@@ -24,12 +23,11 @@ class App extends React.Component {
                 <Switch>
                     <Route exact path="/" render={() => <Home authed={this.state.authed} />} />
                     <Route exact path="/main" component={Main} />
-                    {/*    <Route exact path="discordsettings" >*/}
-                    {/*        <Route exact path="osu" component={Test}/>*/}
-                    {/*    </Route>*/}
-                    {/*</Route>*/}
+                    <Route path="/usersettings" component={Main} />
+                    <Route path="/discordsettings" component={Main} />
                     <Route exact path="/login" component={ValidatedLoginForm} />
-                    <NotFound />
+                    <Route exact path="/NotFound" component={NotFound} />
+                    <Redirect to="/NotFound" />
                 </Switch>
             </div>
         );
