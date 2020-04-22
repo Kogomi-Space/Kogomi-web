@@ -14,7 +14,14 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Collapse from '@material-ui/core/Collapse';
 import { menu } from './menuItems';
-import {Link, Route, Switch, withRouter} from 'react-router-dom';
+import { Route, useHistory } from 'react-router-dom';
+import ValidatedLoginForm from "../ValidatedLoginForm";
+
+import Dashboard from "./Dashboard";
+import Test from "./Test";
+import Test2 from "./Test2";
+import Osu from "./Osu";
+import LoL from "./LoL";
 
 const drawerWidth = 240;
 
@@ -42,12 +49,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Main = () => {
+    let history = useHistory();
     const classes = useStyles();
     const [state, changeState] = useState({});
     function handleClick(name){
         changeState({...state,[name]: !state[name]});
-        console.log("state",state);
     };
+    function handleLinkClick(link){
+        if (link !== history.location.pathname){
+            history.push(link)
+        }
+    }
     return (
         <div className={classes.root}>
             <CssBaseline />
@@ -70,8 +82,8 @@ const Main = () => {
                     <List>
                         {menu.map((drawer, index) => (
                             drawer.hasOwnProperty('children') ? (
-                                <div>
-                                    <ListItem button key={drawer.name} onClick={() => handleClick(drawer.name)}>
+                                <div key={drawer.id}>
+                                    <ListItem button key={drawer.id} onClick={() => handleClick(drawer.name)}>
                                         <ListItemIcon>{drawer.icon}</ListItemIcon>
                                         <ListItemText primary={drawer.name} />
                                         {state[drawer.name] ? (
@@ -81,15 +93,16 @@ const Main = () => {
                                         )}
                                     </ListItem>
                                     <Collapse
+                                        key={drawer.children.id}
                                         component="li"
                                         in={state[drawer.name]}
                                         timeout="auto"
                                         unmountOnExit >
-                                        <List disablePadding >
+                                        <List disablePadding>
                                             {drawer.children.map(
                                                 nDrawer => {
                                                     return (
-                                                        <ListItem button className={classes.content} >
+                                                        <ListItem button onClick={() => handleLinkClick(drawer.url + nDrawer.url)} className={classes.content} key={nDrawer.id} >
                                                             <ListItemText primary={nDrawer.name} />
                                                         </ListItem>
                                                     )
@@ -99,7 +112,7 @@ const Main = () => {
                                     </Collapse> {" "}
                                 </div>
                             ) : (
-                                <ListItem button key={drawer.name}>
+                                <ListItem button onClick={() => handleLinkClick(drawer.url)} key={drawer.id}>
                                     <ListItemIcon>{drawer.icon}</ListItemIcon>
                                     <ListItemText primary={drawer.name} />
                                 </ListItem>
@@ -111,29 +124,11 @@ const Main = () => {
             </Drawer>
             <main className={classes.content}>
                 <Toolbar />
-                <Typography paragraph>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                    ut labore et dolore magna aliqua. Rhoncus dolor purus non enim praesent elementum
-                    facilisis leo vel. Risus at ultrices mi tempus imperdiet. Semper risus in hendrerit
-                    gravida rutrum quisque non tellus. Convallis convallis tellus id interdum velit laoreet id
-                    donec ultrices. Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-                    adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra nibh cras.
-                    Metus vulputate eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo quis
-                    imperdiet massa tincidunt. Cras tincidunt lobortis feugiat vivamus at augue. At augue eget
-                    arcu dictum varius duis at consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem
-                    donec massa sapien faucibus et molestie ac.
-                </Typography>
-                <Typography paragraph>
-                    Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper eget nulla
-                    facilisi etiam dignissim diam. Pulvinar elementum integer enim neque volutpat ac
-                    tincidunt. Ornare suspendisse sed nisi lacus sed viverra tellus. Purus sit amet volutpat
-                    consequat mauris. Elementum eu facilisis sed odio morbi. Euismod lacinia at quis risus sed
-                    vulputate odio. Morbi tincidunt ornare massa eget egestas purus viverra accumsan in. In
-                    hendrerit gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem et
-                    tortor. Habitant morbi tristique senectus et. Adipiscing elit duis tristique sollicitudin
-                    nibh sit. Ornare aenean euismod elementum nisi quis eleifend. Commodo viverra maecenas
-                    accumsan lacus vel facilisis. Nulla posuere sollicitudin aliquam ultrices sagittis orci a.
-                </Typography>
+                <Route exact path="/main" component={Dashboard} />
+                <Route exact path="/usersettings/sample1" component={Test} />
+                <Route exact path="/usersettings/sample2" component={Test2} />
+                <Route exact path="/discordsettings/osu" component={Osu} />
+                <Route exact path="/discordsettings/LoL" component={LoL} />
             </main>
         </div>
     );
