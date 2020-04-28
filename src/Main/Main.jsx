@@ -15,6 +15,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Collapse from '@material-ui/core/Collapse';
 import { menu } from './menuItems';
 import { Route, useHistory } from 'react-router-dom';
+import { spring, AnimatedSwitch } from 'react-router-transition';
 import ValidatedLoginForm from "../ValidatedLoginForm";
 
 import Dashboard from "./Dashboard";
@@ -51,6 +52,18 @@ const useStyles = makeStyles((theme) => ({
 const Main = () => {
     let history = useHistory();
     const classes = useStyles();
+    function bounce(val) {
+        return spring(val, {
+            stiffness: 330,
+            damping: 22,
+        });
+    }
+    function mapStyles(styles) {
+        return {
+            opacity: styles.opacity,
+            transform: `scale(${styles.scale})`,
+        };
+    }
     const [state, changeState] = useState({});
     function handleClick(name){
         changeState({...state,[name]: !state[name]});
@@ -81,7 +94,7 @@ const Main = () => {
                 <div className={classes.drawerContainer}>
                     <List>
                         {menu.map((drawer, index) => (
-                            drawer.hasOwnProperty('children') ? (
+                            drawer.children ? (
                                 <div key={drawer.id}>
                                     <ListItem button key={drawer.id} onClick={() => handleClick(drawer.name)}>
                                         <ListItemIcon>{drawer.icon}</ListItemIcon>
@@ -124,11 +137,20 @@ const Main = () => {
             </Drawer>
             <main className={classes.content}>
                 <Toolbar />
-                <Route exact path="/main" component={Dashboard} />
-                <Route exact path="/usersettings/sample1" component={Test} />
-                <Route exact path="/usersettings/sample2" component={Test2} />
-                <Route exact path="/discordsettings/osu" component={Osu} />
-                <Route exact path="/discordsettings/LoL" component={LoL} />
+                <AnimatedSwitch
+                    atEnter={{ opacity:0, scale:1.2 }}
+                    atLeave={{ opacity: bounce(0), scale: bounce(0.8)}}
+                    atActive={{ opacity: bounce(1), scale: bounce(1) }}
+                    mapStyles={mapStyles}
+                    runOnMount
+                    className="route-wrapper"
+                >
+                    <Route exact path="/main" component={Dashboard} />
+                    <Route exact path="/usersettings/sample1" component={Test} />
+                    <Route exact path="/usersettings/sample2" component={Test2} />
+                    <Route exact path="/discordsettings/osu" component={Osu} />
+                    <Route exact path="/discordsettings/LoL" component={LoL} />
+                </AnimatedSwitch>
             </main>
         </div>
     );
