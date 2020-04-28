@@ -71,7 +71,7 @@ const ValidatedLoginForm = (props, status) => {
                     setSubmitting(false);
                     // loggedIn = true;
                     if (checkLogin(values.email,values.password)) {
-                        props.history.push('/main');
+                        props.history.push(process.env.PUBLIC_URL + '/main');
                     }
                 }, 500);
             }}
