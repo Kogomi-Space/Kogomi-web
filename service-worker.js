@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/Cubchoo-web/precache-manifest.326e4590d9d19412fb32986403f5345a.js"
+  "/Cubchoo-web/precache-manifest.0913635a50e87f1d4340a7c04b3b6cc4.js"
 );
 
 self.addEventListener('message', (event) => {
