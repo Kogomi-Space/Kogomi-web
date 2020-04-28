@@ -21,12 +21,12 @@ class App extends React.Component {
         return (
             <div>
                 <Switch>
-                    <Route exact path="/" render={() => <Home authed={this.state.authed} />} />
-                    <Route exact path="/main" component={Main} />
-                    <Route path="/usersettings" component={Main} />
-                    <Route path="/discordsettings" component={Main} />
-                    <Route exact path="/login" component={ValidatedLoginForm} />
-                    <Route exact path="/NotFound" component={NotFound} />
+                    <Route exact path={process.env.PUBLIC_URL + '/'} render={() => <Home authed={this.state.authed} />} />
+                    <Route exact path={process.env.PUBLIC_URL + "/main"} component={Main} />
+                    <Route path={process.env.PUBLIC_URL + '/usersettings'} component={Main} />
+                    <Route path={process.env.PUBLIC_URL + "/discordsettings"} component={Main} />
+                    <Route exact path={process.env.PUBLIC_URL + "/login"} component={ValidatedLoginForm} />
+                    <Route exact path={process.env.PUBLIC_URL + "/NotFound"} component={NotFound} />
                     <Redirect to="/NotFound" />
                 </Switch>
             </div>

@@ -145,11 +145,11 @@ const Main = () => {
                     runOnMount
                     className="route-wrapper"
                 >
-                    <Route exact path="/main" component={Dashboard} />
-                    <Route exact path="/usersettings/sample1" component={Test} />
-                    <Route exact path="/usersettings/sample2" component={Test2} />
-                    <Route exact path="/discordsettings/osu" component={Osu} />
-                    <Route exact path="/discordsettings/LoL" component={LoL} />
+                    <Route exact path={process.env.PUBLIC_URL + "/main"} component={Dashboard} />
+                    <Route exact path={process.env.PUBLIC_URL + "/usersettings/sample1"} component={Test} />
+                    <Route exact path={process.env.PUBLIC_URL + "/usersettings/sample2"} component={Test2} />
+                    <Route exact path={process.env.PUBLIC_URL + "/discordsettings/osu"} component={Osu} />
+                    <Route exact path={process.env.PUBLIC_URL + "/discordsettings/LoL"} component={LoL} />
                 </AnimatedSwitch>
             </main>
         </div>
