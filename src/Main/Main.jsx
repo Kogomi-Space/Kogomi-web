@@ -70,7 +70,7 @@ const Main = () => {
     };
     function handleLinkClick(link){
         if (link !== history.location.pathname){
-            history.push(link)
+            history.push(process.env.PUBLIC_URL + link)
         }
     }
     return (
