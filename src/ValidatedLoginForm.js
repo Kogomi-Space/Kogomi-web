@@ -14,7 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import checkLogin from './CheckLogin'
+import checkLogin from './CheckLogin';
 
 function Copyright() {
     return (
