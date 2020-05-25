@@ -67,11 +67,13 @@ const ValidatedLoginForm = (props, status) => {
         <Formik
             initialValues={{ email: "", password: "" }}
             onSubmit={(values, { setSubmitting }) => {
-                setTimeout(() => {
+                setTimeout(async() => {
                     setSubmitting(false);
-                    // loggedIn = true;
-                    if (checkLogin(values.email,values.password)) {
+                    const loggedIn = await checkLogin(values.email,values.password);
+                    if (loggedIn) {
                         props.history.push(process.env.PUBLIC_URL + '/main');
+                    }else{
+                        alert("Password incorrect!")
                     }
                 }, 500);
             }}
